@@ -177,6 +177,10 @@ int main(int argc, char** argv)
 		std::cout << fileName << " is used for input data-series\n";
 	}
 	
+    // TODO: replace ./ in an inpu file with empty string
+    
+    std::string fileNameOut("opt_"+fileName); 
+    
 	clock_t t = clock();
 
 	int inLoops = 100;		//! Inner loop iterations
@@ -249,10 +253,11 @@ int main(int argc, char** argv)
 
 	//! Write optimal outcome to disk
 	std::ofstream fp;
-	fp.open("opt.csv", std::ofstream::out);
+    // we use "opt_" prefix for the output file so to have a unique output filename for every unique input file
+	fp.open(fileNameOut, std::ofstream::out);
 	if (!fp.is_open())
 	{
-		std::cerr << "Couldn't open opt.csv! Exiting..\n";
+		std::cerr << "Couldn't open " << fileNameOut << "! Exiting..\n";
 		return EXIT_FAILURE;
 	}
 
