@@ -45,10 +45,10 @@
 //! ---------------------------------------------------------------------------
 //! Calculates volatility from ml_data.csv file
 //! ---------------------------------------------------------------------------
-float calcVolatility(const float& spotPrice, const int& timesteps)
+float calcVolatility(const float& spotPrice, const int& timesteps, std::string fileName)
 {
 	//! Open ml_data.csv in read-mode, exit on fail
-	const std::string fileName("ml_data.csv");
+	//const std::string fileName("ml_data.csv");
 	std::ifstream fp;
 	fp.open(fileName, std::ifstream::in);
 	if (!fp.is_open())
@@ -166,6 +166,17 @@ float* runBlackScholesModel(const float& spotPrice, const int& timesteps, const 
 //! ---------------------------------------------------------------------------
 int main(int argc, char** argv)
 {
+	std::string fileName("ml_data.csv");
+	if (argc<2)
+	{
+		std::cout << "You have not provided an input file, ml_data.csv is assumed\n";
+	}
+	else
+	{
+		fileName=argv[1];
+		std::cout << fileName << " is used for input data-series\n";
+	}
+	
 	clock_t t = clock();
 
 	int inLoops = 100;		//! Inner loop iterations
@@ -189,7 +200,7 @@ int main(int argc, char** argv)
 	float spotPrice = 100.0f;	//! Spot price (at t = 0)
 
 	//! Market volatility (calculated from ml_data.csv)
-	float volatility = calcVolatility(spotPrice, timesteps);
+	float volatility = calcVolatility(spotPrice, timesteps, fileName);
 
 	//! Welcome message
 	std::cout << "--Welcome to Stockast: Stock Forecasting Tool--\n";
