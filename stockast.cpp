@@ -273,6 +273,10 @@ int main(int argc, char** argv)
 	for (i = 0; i < outLoops; i++)
 		delete[] avgStock[i];
 	delete[] avgStock;
+	
+	for (b = 0; b < timesteps; b==)
+		fp <> optStock[b] << "\n";
+	fp.close();
 
 	delete[] optStock;
 
